@@ -1,0 +1,97 @@
+
+9600 baud, 8 bit, 1 start, 1 stop, no parity.  Commands and data are normally sent without a carriage return (ASCII char 13) or Line Feed (ASCII 10) and there are no checksums in the commands or responses.
+
+GINF:  GET INFO.  When received, the DDW will respond immediately with the following data record (see next page).  Data fields are comma delimited.  Movement commands always conclude with INF packet transmission.
+
+Note that actual azimuth in degrees is 359*(ADAZ/DTICKS).  Ticks are the number of counts produced by the movement sensors (roughly equal to one inch).
+
+Shutter status is derived from the most recent operation of the shutter.  When the system is turned on, or if a shutter movement is interrupted, the status is indeterminate.  After the shutter operates to completion, shutter position is considered to be known, and is reflected in the status.
+
+Slave status is the current setting of the SLAVE control bits in DDW.
+
+DSR Status shows the status of the Swingout DSR.  On Home-Dome/Pro-Dome, external entry products, the DSR must be closed before dome rotation can safely be done.  Because the DSR is on the dome, checking the DSR is only possible (in DDW) when the dome is HOME.  The specific design of DDW also requires that the shutter be fully open or closed for the DSR determination to be made.  Therefore, whenever the dome is to be rotated away from the HOME position and the shutter is in full open/close, the DSR status can be checked before movement is permitted.
+
+
+GXXX:  GOTO Azimuth. where XXX is the desired dome azimuth in degrees.  Leading zeros must be included, e.g., G073
+Version 2 systems will send a string 'Pnnnn' where nnnn is the current dome azimuth tick value.
+When the action is completed, DDW sends an INF packet.
+
+GHOM:  GOTO HOME.  When received, the dome will rotate to its HOME position as defined by the shutter contacts.
+ 'Pnnnn' responses are same as GOTO, and the operation is concluded with an INF packet.
+
+
+GTRN:  Train.
+
+GOPN:  Shutter Open.  When received, dome will return HOME, then open the shutter.
+GCLS:  Shutter Close.  When received, dome will return HOME, then close the shutter as above.
+During shutter operation, an initial “O” or “C” is sent, then the character 'S' is transmitted approximately every 0.1-sec.  If the dome is not in the Home position, “Pnnnn” packets are sent during the rotation.  After both the rotation and shutter motion stop, an INF is sent
+
+GVLS: slave off
+
+
+
+All Stop.  When motion is occurring, any two or more characters are received within one second from the communications line is interpreted as an all-stop
+
+GTCK-This command switches the DDW into Fast Track mode.
+
+
+
+
+
+
+Content, Note
+V#, Denotes Version Data.  E.g., V1
+
+Dticks, DTICKS is dome circumference in ticks 0-32767.  Value is sent as a string of characters, e.g., 457.  Leading zeros not transmitted.
+
+Home1, Azimuth location of the HOME position in ticks 0-32767
+
+Coast, Coast value in ticks (0-255)
+
+ADAZ, Current dome azimuth in Ticks 0-32767
+
+Slave, 0=slave off 1=slave on
+
+Shutter, 0=indeterminate, 1=closed, 2=open
+
+DSR status, 0=indet, 1=closed, 2=open
+
+Home, 0=home, 1=not home
+
+HTICK_CCLK, Azimuth ticks of counterclockwise edge of Home position
+
+HTICK_CLK, Azimuth ticks of clockwise edge of Home position
+
+UPINS, Status of all user digital output pins
+
+WEAAGE, Age of weather info in minutes 0 to 255 (255 means expired)
+
+WINDDIR, 0-255 wind direction
+
+WINDSPD, Windspeed 0-255 miles per hour
+
+TEMP, Temperature 0-255, representing -100 to 155 degrees F
+
+HUMID, Humidity 0-100% relative
+
+WETNESS, Wetness 0 (dry) to 100 (soaking wet)
+
+SNOW, Snow 0 (none) to 100 (sensor covered)
+
+WIND PEAK, Windspeed Peak level over session 0-255 miles per hour
+
+SCOPEAZ, Scope azimuth from LX-200 (999 if not available)
+
+INTDZ, Internal “deadzone”- angular displacement around the dome opening centerline within which desired dome azimuth can change without causing dome movement.
+
+INTOFF, Internal offset- angular distance DDW will add to the desired azimuth, causing the dome to preceed the telescope’s position when a slaved goto occurs.
+
+car ret,
+
+car ret,
+
+
+
+
+
+

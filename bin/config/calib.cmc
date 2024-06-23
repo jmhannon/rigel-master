@@ -1,0 +1,17 @@
+
+/* Calibration test script
+*/
+
+define calib()
+{
+	while(1) {
+		while(working != 1) {
+			while(ilevel != 2)
+			{
+				mtvel = 100;
+			}
+			mtvel = 0;
+			=mpos;
+		}
+	}
+}

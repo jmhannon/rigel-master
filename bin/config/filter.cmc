@@ -1,0 +1,138 @@
+///////////////////////////
+//
+// Filter control cmc script
+//
+// 1.0   7/3/02  STO -- written
+//
+///////////////////////////
+
+// ======================================
+// Configuration section:
+//
+// Note: Modify return values below to match installation bit switch settings
+//
+// Note bit value with notation (1<<n) where n is bit number 0 - 7
+// Combine bits with | operator ex:  ((1<<3) | (1<<4)) sets both bits 3 and 4
+//
+// (Connector pin # reference)
+// bit  JP21(in)   JP22(out)
+// ---  --------   ---------
+//  0      1       1(hi) 2(lo)
+//  1      3       3(hi) 4(lo)
+//  2      5       5(hi) 6(lo)
+//  3      7       7(hi) 8(lo)
+//  4      9       9(hi) 10(lo)
+//  5      11      11(hi) 12(lo)
+//  6      13	   13(hi) 14(lo)
+//  7      15      15(hi) 16(lo)
+
+homebit = ( 1 << 0);		// input bit used for home
+nlimbit = 0;				// input bit used for negative limit, or 0 if none
+plimbit = 0;				// input bit used for positive limit, or 0 if none
+
+maxacc = 4000;
+maxvel = 2000;
+
+define indexBit() {
+	return (1 << 1); 		// input bit used for index registration
+}
+
+// seek before target position, then forward slowly until we hit index switch
+
+define seekFilter($t, $overstep)
+{
+	$9 = 1;
+	while($9) { // loop if we have to rehome
+    	$9 = 0; // assume not, though
+
+        // seek at full speed to position 2
+        mtvel = maxvel;
+        mtpos = $t - $overstep;
+
+        printf("1:Selecting filter...\n");
+        while(mpos != mtpos) { }; // go there
+
+        printf("2:Indexing filter...\n");
+        mtvel = $overstep/2; // move slowly
+        mtpos = $t + $overstep;
+
+        // find index
+        while(!(ilevel & indexBit())) {
+            if(mpos == mtpos) {
+                // we reached end of window!
+                printf("9:Index not found for filter\n");
+                printf("10:Rehoming filter\n");
+
+                if(mtvel > 0) $3 = 1;
+                else $3 = -1;
+                findhome($3);
+                $9 = 1; // force loop
+                break;
+            }
+        }
+
+        // we are there!
+        printf("0:Filter indexed\n");
+        mtvel = 0;
+    }
+}
+
+/*
+define testFilter($os, $wi)
+{
+	while(1) {
+		$1=0;
+		while($1 < 12) {
+			$2 = $os * $1;
+			seekFilter(123+$2,$wi);
+			=mpos;
+			pause(5000);
+			$1++;
+		}
+		while($1 > 0) {
+			$1--;
+			$2 = $os * $1;
+			seekFilter(123+$2,$wi);
+			=mpos;
+			pause(5000);
+		}
+	}
+}
+*/
+
+define idxfnd()
+{		
+	f = 123;	// offset to 1st filter
+	s = 800;	// span between filters	
+	
+	mtvel = s/2;
+	
+	printf("Resetting to zero...\n");
+	mtpos = 0;
+	while(mpos);
+		
+	mtpos = f + s*12 + s/4;	// move full range of 12 filters, plus enough to get well past last switch
+	
+	printf("Beginning index scan...\n");
+	$0 = 0;
+	$3 = 0;
+	while(working) {
+		while((ilevel & indexBit()) == $3) {
+			if(!working) break;
+		}
+		if(working) {
+			if(!$3) {
+				$1 = mpos;
+				printf("Index %02d  start: % 4d  ",$0,$1);
+				$3=indexBit();
+			} else {
+				$2 = mpos;
+				printf("end: % 4d\n",$2);
+				$0++;
+				$3=0;
+			}
+		}
+	}	
+	
+}
+									

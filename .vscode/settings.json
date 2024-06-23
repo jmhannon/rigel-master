@@ -1,0 +1,9 @@
+{
+  "files.associations": {
+    "configfile.h": "c",
+    "p_.h": "c",
+    "circum.h": "c",
+    "astro.h": "c",
+    "tts.h": "c"
+  }
+}

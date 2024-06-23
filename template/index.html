@@ -1,0 +1,102 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+		<title>Rigel</title>
+		<link rel="stylesheet" href="/bootstrap.min.css">
+		<link href="/dashboard.css" rel="stylesheet">
+	</head>
+
+	<body>
+		<nav class="navbar navbar-dark fixed-top bg-dark flex-md-nowrap p-0 shadow">
+			<a class="navbar-brand col-sm-3 col-md-2 mr-0" href="#">Rigel</a>
+			<ul class="navbar-nav px-3">
+				<li class="nav-item text-nowrap">
+					<a class="nav-link" href="#">Sign out</a>
+				</li>
+			</ul>
+		</nav>
+
+		<div class="container-fluid">
+			<nav class="col-md-2 d-none d-md-block bg-light sidebar">
+				<div class="sidebar-sticky">
+					<ul class="nav flex-column">
+						<li class="nav-item">
+							<a class="nav-link active" href="#">
+								Catalog
+							</a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link " href="#">
+								Control Center
+							</a>
+						</li>
+					</ul>
+
+				</div>
+			</nav>
+
+			<main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4">
+				<div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+					<h1 class="h2">Control Center</h1>
+					<div class="btn-toolbar mb-2 mb-md-0">
+						<button class="btn btn-sm btn-outline-secondary dropdown-toggle">
+							This week
+						</button>
+					</div>
+				</div>
+			<div class="row">
+				<div class="col-md-3">
+					<div class="card">
+						<div class="card-header">
+							Telescope DPad
+						</div>
+						<div class="card-body">
+							<p class="card-text">
+
+
+							<button onclick="go('west')">West <i class="west"></i></button>
+							<button onclick="go('east')">East <i class="east"></i></button>
+							<br />
+							<button>Up <i class="up"></i></button>
+							<button>Down <i class="down"></i></button>
+							<br />
+							<button onclick="go('stop')">STOP</button>
+
+							</p>
+						</div>
+					</div>
+				</div>
+				<div class="col-md-3">
+					<div class="card">
+						<div class="card-header">
+							Focus
+						</div>
+						<div class="card-body">
+							<p class="card-text">
+							<button>In</button>
+							<button>Out</button>
+
+							</p>
+						</div>
+					</div>
+				</div>
+
+
+
+
+			</div>
+
+			<div class="row">
+				<div id="status" class="col-md-3">
+					Waiting...
+				</div>
+			</div>
+
+			</main>
+		</div>
+		<script src="/jquery-3.3.1.min.js"></script>
+		<script src="/bootstrap.min.js"></script>
+		<script src="/app.js"></script>
+	</body>
+</html>

@@ -1,0 +1,65 @@
+// absolute value
+define abs($v) {return ($v < 0 ? -$v : $v);}
+
+// max of 2
+define max($a,$b) {return ($a > $b ? $a : $b); }
+
+// min of 2
+define min($a,$b) {return ($a < $b ? $a : $b); }
+
+// sign
+define sign($x) {return ($x < 0 ? -1 : 1); }
+
+// pause $n ms
+define pause($n) {for ($0=$n+clock-10; clock<$0;);}
+
+// print a variable in hex
+define hex($v) {printf ("0x%02x\n", $v); }
+
+// report basic current values:
+define report()
+{
+	printf("%9d mpos:%8d mvel:%8d epos:%8d plim:%d nlim:%d home:%d\n", clock, mpos, mvel, epos,
+			!!(ilevel & plimbit), !!(ilevel & nlimbit), !!(ilevel & homebit));
+}
+
+define st()
+{
+	printf("mpos=%d m/evel=(%d/%d) epos=%d etrig=%d lhome:%d, ehome:%d\n",
+	  mpos, mvel, evel, epos, etrig, !!(ilevel & homebit), !!(iedge & homebit) );
+	while (working)
+	{
+		printf("mpos=%d m/evel=(%d/%d) epos=%d etrig=%d lhome:%d, ehome:%d\n",
+		  mpos, mvel, evel, epos, etrig, !!(ilevel & homebit), !!(iedge & homebit) );
+		pause(500);
+	}
+}
+
+/* synchronous operation */
+define sync()
+{
+	while(working) {continue;}
+}
+
+
+// use timeout?
+// use evel (current encoder velocity)
+define monitor()
+{
+	printf("start: mpos=%d,mvel,epos,evel,mtpos=%d\n", mpos,mtpos);
+	pause(500);  // let it get going
+	while(working)
+	{
+		//$1=evel;
+		printf("%d,%d,%d,%d\n", mpos, mvel, epos, evel);
+		/*if (working && (0 == $1))
+		{
+			// we didnt move!
+			stop();
+			printf("error: we got stuck\n");
+			return;
+		}*/
+		pause(700);
+	}
+	printf("done: %d,%d,%d,%d\n", mpos, mvel, epos, evel);
+}

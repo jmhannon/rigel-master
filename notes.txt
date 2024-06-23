@@ -1,0 +1,163 @@
+Rigel + QSI: 11.97' x 9.01'
+
+PI /dev/ttyS0
+laptop: screen /dev/ttyUSB0 115200
+
+pi3:
+/boot/config.txt enable_uart=1
+
+usb console:
+enable /etc/inittab, ttyS0 line
+enable /boot/cmdline.txt console=ttyS0,115200
+
+Find Pi:
+sudo nmap -sP 192.168.0.0/24 | awk '/^Nmap/{ipaddress=$NF}/B8:27:EB/{print ipaddress}'
+
+Pin-out:
+skip 2,
+black
+white
+green
+
+
+
+stop:
+csi_w "mtvel=0;"
+wait for "=mvel;" to be zero
+
+move:
+csi_w "mtvel=%d;",  (mp)->sign * floor((mp)->step * (mp)->cvel / (2*PI) + 0.5)
+
+set pos
+csi_w "etpos=%.0f;", mip->esign * mip->estep * mip->dpos / (2*PI)
+
+
+read pos:
+telescoped.csi/tel.c 1383
+	raw = csi_rix (MIPSFD(mip), "=epos;");
+	draw = abs(raw - mip->raw)==1 ? (raw + mip->raw)/2.0 : raw;
+	mip->raw = raw;
+	mip->cpos = (2*PI) * mip->esign * draw / mip->estep;
+
+deg * (pi/180) = rad
+rad * (180/pi) = deg
+
+
+360 degree in encoder steps = 12976128
+1 degree = 36044.8 encoder steps
+
+Say Polaris is:
+J2000 2h 31m 50.97s or (37.95456067)
+and 90 degress to that is HIP 86681 A:
+J2000 17h 42m 38.42s or (265.659903685341)
+
+ra encoder zero = north
+apparent ra increases west
+apparent ra of 180 is south
+apparent ra of 270 is east
+
+HIP 118268, W Pcs, vernal equinox
+
+Camera filters:
+slot1 = clear
+slot2 = Red
+slot3 = Green
+slot4 = Blue
+slot5 = empty
+
+ra limit: 14,156,229
+
+
+00> findlim(1);
+1 Seeking limit
+0 Found limit
+00> =epos;
+13,512,731
+00> findlim(-1);
+1 Seeking limit
+0 Found limit
+00> =epos;
+101,040
+
+00> findhom(1);
+2: backing up...
+1: fine tuning at 15000
+2: backing up...
+1: fine tuning at 1500
+2: backing up...
+1: fine tuning at 150
+2: backing up...
+1: fine tuning at 15
+2: backing up...
+1: fine tuning at 1
+0: done!
+00> =epos;
+0
+
+
+-3460811
+-178948
+3028556
+
+6462284 + abs(-6998176) = 13460460
+
+
+
+
+01> findlim(1);
+1 Seeking limit
+0 Found limit
+01> =epos;
+2867311
+
+
+01> findlim(-1);
+1 Seeking limit
+0 Found limit
+01> =epos;
+-3706421
+
+
+
+00> findlim(1);
+1 Seeking limit
+0 Found limit
+00> =epos;
+6723762
+
+
+findlim(-1);
+1 Seeking limit
+0 Found limit
+00> =epos;
+-6699665
+
+00> mtvel=200;
+00> mtvel=800;
+00> mtvel=1200;
+00> mtvel=2200;
+00> mtvel=3200;
+00> mtvel=6200;
+00> mtvel=600;
+00> mtvel=1600;
+00> mtvel=00;
+00> =epos;
+-6272507
+
+dec axis level:
+
+01> =epos;
+-3360397
+
+01> findlim(1);
+1 Seeking limit
+0 Found limit
+01> =epos;
+2854458
+
+
+01> report();
+  1425009  -963704        0 -3701828 0 0 1
+01>
+
+

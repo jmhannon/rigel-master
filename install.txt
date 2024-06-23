@@ -1,0 +1,13 @@
+need installed first:
+https://github.com/liberfa/erfa
+https://github.com/Starlink/pal
+./configure
+make -j4
+sudo make install
+
+sbo cfitsio, vips
+qsiapi
+
+perl perlMods.pl
+
+

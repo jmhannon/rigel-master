@@ -1,0 +1,21 @@
+cmc language:
+
+system variables are 4 characters.  so plim and plimbit and plimit are all the same
+variable.
+
+user created functions are 7 characters, so findhome() and findhom() are the
+same.
+
+26 global shared variables: a..z
+10 function variables: $0..$9
+
+Remote variable: mtvel@2
+
+define procName($var1, $var2) {
+}
+
+function variables begin with $, 7 char limit.
+functions are global.
+
+
+

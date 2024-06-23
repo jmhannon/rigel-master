@@ -1,0 +1,10 @@
+// Focus axis
+homebit = 0x1;
+//nlimbit = 0x1;
+plimbit = 0x2;
+
+// Damping factor
+kv     = 2000;
+
+maxvel = 250;
+maxacc = 500;

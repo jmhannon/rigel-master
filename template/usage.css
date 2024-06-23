@@ -1,0 +1,49 @@
+body {
+	background-color: #eee;
+}
+pre {
+	background-color: #c2e0dc;
+}
+
+.blue {
+	background-color: #396ba5;
+}
+.navbar .container-fluid {
+	padding-right: 0px;
+	padding-left: 0px;
+}
+
+.navbar-default .navbar-brand {
+	color: white;
+}
+.navbar-default .navbar-brand:focus, .navbar-default .navbar-brand:hover {
+	color: black;
+}
+.navbar-default .navbar-nav > li > a {
+	color: white;
+}
+.navbar-default .navbar-nav > li > a:focus, .navbar-default .navbar-nav > li > a:hover {
+	color: black;
+}
+
+.txtright {
+	text-align: right;
+}
+
+.link-button {
+	background: none;
+	border: none;
+	color: blue;
+	text-decoration: underline;
+	cursor: pointer;
+	font-size: 1em;
+	font-family: serif;
+	padding-top: 5px;
+}
+
+.hlrow tr:hover {background-color: #d1d1d1; cursor: pointer; }
+.xhide {display: none}
+.t2 {width: 90%}
+.notest {background-color: red}
+.medtest {background-color: yellow}
+.goodtest {background-color: green}

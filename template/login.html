@@ -1,0 +1,47 @@
+<!doctype html>
+<html>
+	<head>
+		<title>CAMAVision Usage</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+		<link rel="stylesheet" type="text/css" href="/usage.css" />
+	</head>
+	<body>
+
+		<div class="container" id="login_div">
+
+			<div class="row">
+				<div class="col-sm-6 col-sm-offset-3">
+					<div id="loginPanel" class="panel panel-primary">
+						<div class="panel-heading">Login</div>
+						<div class="panel-body">
+							[% if ($message) { %]
+							<p>[% $message %]<br>
+							[% } %]
+
+							<form class="form-horizontal" method="post" action="/login.html">
+								<div class="form-group">
+									<label for="edtu" class="col-sm-2 control-label">EMail</label>
+									<div class="col-sm-10">
+										<input type="text" class="form-control" name="edtu" autofocus>
+									</div>
+								</div>
+								<div class="form-group">
+									<label for="edtp" class="col-sm-2 control-label">Password</label>
+									<div class="col-sm-10">
+										<input type="password" class="form-control" name="edtp">
+									</div>
+								</div>
+								<div class="form-group">
+									<div class="col-sm-offset-2 col-sm-10">
+										<button type="submit" name="dologin" class="btn btn-default">Sign in</button>
+									</div>
+								</div>
+							</form>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</body>
+</html>

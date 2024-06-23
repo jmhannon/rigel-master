@@ -1,0 +1,46 @@
+// ilevel == right now
+// iedge  == has ever
+// ipolar == 1 iedge triggered when 0V to 5V,
+//           0 iedge triggered when 5V to 0V
+
+define test()
+{
+	printf("start test\n");
+	stop();
+	//stats();
+	//mtvel = 0;
+	sync();
+	report();
+
+	$1 = -1;  //default dir
+	//unless we are at a limit
+	if((ilevel|iedge) & plimbit)// if at or past positive limit
+	{
+		printf("move off plimbit\n");
+		$0 = plimbit;
+		$1 = 1;
+		goback(-1, plimbit);	// go negative
+	}
+	if((ilevel|iedge) & nlimbit)// if at or past negative limit
+	{
+		printf("move off nlimbit\n");
+		$0 = nlimbit;
+		$1 = -1;
+		goback(1, nlimbit);		// go positive
+	}
+
+	printf("slowly...\n");
+	// slowly find limit
+	iedge = $0;
+	mtvel = $1 * 25000;
+
+	while(!(iedge & $0));
+	stop();
+	sync();
+	report();
+
+	mtpos = mtrig;
+	sync();
+	report();
+}
+

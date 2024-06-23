@@ -1,0 +1,44 @@
+	syslog
+	outside ip, ddns, static ip, open ports (httpd, ssh)
+	login
+20%	csi (socket)
+20%	dome (usb)
+20%	camera (usb)
+20%	httpd server
+50% lx200 compat
+	http client
+	makefiles
+	csi lights?
+	stardb?
+	upload fits?
+	fits to jpg? (vips)
+
+website version 1:
+1) login
+2) search for star?
+3) enter RA and Dec
+4) telescope and dome move
+5) click "take a pic"
+6) camara stuff, upload to B2, S3, etc
+7) give user link to download
+
+version 2:
+focus
+track
+exposer time
+filter
+quick peek pict to see what the camera sees (fits to jpg), view on webpage
+
+version 3:
+scheduling
+
+
+Problems:
+	power must be on 24/7 to dome?  probably bad.
+	multiple users at the same time, probably bad.
+	trust user to know weather, or install sensors?
+	cant keep camara on and cool 24/7, probably bad.
+	expire fits on B2?  leave it forever?
+	long, long term mmc/sd card failurs, probably need ssd
+
+

@@ -1,0 +1,11 @@
+Needs environment variable set TELHOME= "/usr/local/telescope" maybe get rid of references to TELHOME
+writes to /var/log/syslog for errors etc
+/usr/local/telescope/comm is where fifos could be
+
+fifios are not getting open, don't think the open function is pointing to a valid name and location fixed
+TODO:
+change fifo location, things in /tmp get deleted on restart done
+add read shm functions to tel.c done
+get SHM to compile and link
+need to flush fifo buffer, needs nonblocking read in python
+
